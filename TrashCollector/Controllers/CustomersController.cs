@@ -36,7 +36,6 @@ namespace TrashCollector.Controllers
 
             var customer = await _context.Customers
                 .Include(c => c.Address)
-                .Include(c => c.IdentityUser)
                 .Include(c => c.PickUp)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
