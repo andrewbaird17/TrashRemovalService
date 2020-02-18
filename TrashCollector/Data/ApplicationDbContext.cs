@@ -14,8 +14,9 @@ namespace TrashCollector.Data
             : base(options)
         {
         }
-        public DbSet<ApplicationUser> users;
-
+        public DbSet<ApplicationUser> Users;
+        public DbSet<Customer> Customers;
+        public DbSet<Employee> Employees;
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
