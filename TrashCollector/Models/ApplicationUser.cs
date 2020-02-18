@@ -9,6 +9,5 @@ namespace TrashCollector.Models
 {
     public class ApplicationUser : IdentityUser
     {
-
     }
 }

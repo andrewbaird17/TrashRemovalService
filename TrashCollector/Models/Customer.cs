@@ -23,10 +23,9 @@ namespace TrashCollector.Models
         public int AddressId { get; set; }
         public Address Address { get; set; }
 
-        [ForeignKey("ApplicationUser")]
-        public int ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
-
+        [ForeignKey("PickUp")]
+        public int PickUpId { get; set; }
+        public PickUp PickUp { get; set; }
        
     }
 }

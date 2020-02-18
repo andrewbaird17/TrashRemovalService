@@ -14,8 +14,5 @@ namespace TrashCollector.Models
         public string Name { get; set; }
         public int RouteZipCode { get; set; }
 
-        [ForeignKey("ApplicationUser")]
-        public int ApplicationUserId { get; set; }
-        public ApplicationUser AppUser { get; set; }
     }
 }
