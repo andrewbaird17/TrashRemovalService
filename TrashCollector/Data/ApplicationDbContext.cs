@@ -43,7 +43,6 @@ namespace TrashCollector.Data
             //            Id = 1,
             //            Name = "Steve",
             //            RouteZipCode = 53217
-
             //        },
             //        new Employee
             //        {
@@ -62,7 +61,6 @@ namespace TrashCollector.Data
             //            City = "New Berlin",
             //            State = "Wisconsin",
             //            ZipCode = 53151
-
             //        },
             //        new Address
             //        {
