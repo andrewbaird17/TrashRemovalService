@@ -113,6 +113,8 @@ namespace TrashCollector.Areas.Identity.Pages.Account
                     {
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
+                        //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                        //return LocalRedirect(userId);
                     }
                 }
                 foreach (var error in result.Errors)

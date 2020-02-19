@@ -18,15 +18,11 @@ namespace TrashCollector.Models
 
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        public double Balance { get; set; }
 
-        [ForeignKey("Address")]
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
-
-        [ForeignKey("PickUp")]
-        public int PickUpId { get; set; }
-        public PickUp PickUp { get; set; }
+        [ForeignKey("Account")]
+        [Display(Name = "Account Number")]
+        public int AccountId { get; set; }
+        public Account Account { get; set; }
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
