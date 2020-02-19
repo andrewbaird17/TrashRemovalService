@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TrashCollector.Data;
 using TrashCollector.Models;
 
 namespace TrashCollector.Controllers
@@ -12,14 +14,26 @@ namespace TrashCollector.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ApplicationDbContext _context;
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (User.IsInRole("Customer"))
+            {
+                // Check if already a customer in Customers table
+                var customerInDB = _context.Customers.Where(x => x.IdentityUserId == userId).FirstOrDefault();
+                if (customerInDB == null)
+                {
+                    return RedirectToAction("Create", "Customers");
+                }
+
+            }
             return View();
         }
 
