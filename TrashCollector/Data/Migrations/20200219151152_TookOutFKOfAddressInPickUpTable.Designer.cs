@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Data;
 
 namespace TrashCollector.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200219151152_TookOutFKOfAddressInPickUpTable")]
+    partial class TookOutFKOfAddressInPickUpTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace TrashCollector.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a541fe64-5790-4f39-bbbd-fcdb3f652f1e",
-                            ConcurrencyStamp = "ffe68695-f982-4e81-bd01-0866a74144b8",
+                            Id = "4864d4cc-1dbf-41dc-b290-3773a8398891",
+                            ConcurrencyStamp = "5828dbf7-6c57-48a1-a760-15fbd4590a45",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "90fdbf0a-5b11-43bb-8314-b419438195b3",
-                            ConcurrencyStamp = "2bac404c-792c-47d2-b14d-f2c96be05d1a",
+                            Id = "f1267f88-9317-4258-8084-5e803af9fe3f",
+                            ConcurrencyStamp = "8957564e-4a89-469c-97a6-65a8a37f0944",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -275,6 +277,9 @@ namespace TrashCollector.Data.Migrations
                     b.Property<DateTime>("EndDateSuspend")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsPickedUp")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsSuspended")
                         .HasColumnType("bit");
 
@@ -376,9 +381,6 @@ namespace TrashCollector.Data.Migrations
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsPickedUp")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("PickUpDate")
                         .HasColumnType("datetime2");

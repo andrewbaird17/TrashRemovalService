@@ -10,10 +10,7 @@ namespace TrashCollector.Models
     {
         [Key]
         public int Id { get; set; }
-        public bool IsPickedUp { get; set; }
         public DateTime OneTimePickup { get; set; }
-        public DateTime AccountStartDate { get; set; }
-        public DateTime AccountEndDate { get; set; }
         public bool IsSuspended { get; set; }
         public DateTime StartDateSuspend { get; set; }
         public DateTime EndDateSuspend { get; set; }

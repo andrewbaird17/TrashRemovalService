@@ -17,12 +17,10 @@ namespace TrashCollector.Models
         public int AccountId { get; set; }
         public Account Account { get; set; }
 
-        [ForeignKey("Address")]
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
-
         [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
+
+        public bool IsPickedUp { get; set; }
     }
 }
