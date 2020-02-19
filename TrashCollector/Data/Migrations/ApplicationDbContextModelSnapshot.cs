@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Data;
 
-namespace TrashCollector.Data.Migrations
+namespace TrashCollector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -48,15 +48,15 @@ namespace TrashCollector.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a541fe64-5790-4f39-bbbd-fcdb3f652f1e",
-                            ConcurrencyStamp = "ffe68695-f982-4e81-bd01-0866a74144b8",
+                            Id = "9005686b-e8fa-4a6b-9dda-081f720d7625",
+                            ConcurrencyStamp = "4cdeda4b-9e7b-415d-86ae-acce346a10b7",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "90fdbf0a-5b11-43bb-8314-b419438195b3",
-                            ConcurrencyStamp = "2bac404c-792c-47d2-b14d-f2c96be05d1a",
+                            Id = "9bea9050-104d-4172-bff5-d223cde9ab53",
+                            ConcurrencyStamp = "2552923d-cc24-4a3c-a0c5-ebeb496a56d5",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -265,12 +265,6 @@ namespace TrashCollector.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("AccountEndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("AccountStartDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("EndDateSuspend")
                         .HasColumnType("datetime2");

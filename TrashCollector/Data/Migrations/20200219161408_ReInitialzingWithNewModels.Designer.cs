@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Data;
 
-namespace TrashCollector.Data.Migrations
+namespace TrashCollector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200219150646_AddedNewModelsofAccountAccountServicePickUp")]
-    partial class AddedNewModelsofAccountAccountServicePickUp
+    [Migration("20200219161408_ReInitialzingWithNewModels")]
+    partial class ReInitialzingWithNewModels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,15 +50,15 @@ namespace TrashCollector.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "322169ab-c3ae-4b22-a51e-95b554ea6562",
-                            ConcurrencyStamp = "30d8cc25-0392-4073-8236-e381656449cc",
+                            Id = "9005686b-e8fa-4a6b-9dda-081f720d7625",
+                            ConcurrencyStamp = "4cdeda4b-9e7b-415d-86ae-acce346a10b7",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "119a448b-4f5a-4fac-9478-38b2e0c6049e",
-                            ConcurrencyStamp = "281f33ca-ecfa-4f7f-a456-647a5b48930f",
+                            Id = "9bea9050-104d-4172-bff5-d223cde9ab53",
+                            ConcurrencyStamp = "2552923d-cc24-4a3c-a0c5-ebeb496a56d5",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -268,17 +268,8 @@ namespace TrashCollector.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("AccountEndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("AccountStartDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime>("EndDateSuspend")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsPickedUp")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsSuspended")
                         .HasColumnType("bit");
@@ -379,11 +370,11 @@ namespace TrashCollector.Data.Migrations
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsPickedUp")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("PickUpDate")
                         .HasColumnType("datetime2");
@@ -391,8 +382,6 @@ namespace TrashCollector.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
-
-                    b.HasIndex("AddressId");
 
                     b.HasIndex("EmployeeId");
 
@@ -490,12 +479,6 @@ namespace TrashCollector.Data.Migrations
                     b.HasOne("TrashCollector.Models.Account", "Account")
                         .WithMany()
                         .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TrashCollector.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

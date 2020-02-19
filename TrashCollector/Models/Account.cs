@@ -11,13 +11,14 @@ namespace TrashCollector.Models
     {
         [Key]
         public int Id { get; set; }
-        public double Balance { get; set; }
         public DayOfWeek PickUpDay { get; set; }
+        public double Balance { get; set; }
+        public bool IsPickedUp { get; set; }
+        public bool IsSuspended { get; set; }
+        public DateTime StartDateSuspend { get; set; }
+        public DateTime EndDateSuspend { get; set; }
+        public DateTime OneTimePickup { get; set; }
 
-        [ForeignKey("AccountServices")]
-        public int AccountServicesId { get; set; }
-        public AccountService AccountServices { get; set; }
-       
         [ForeignKey("Address")]
         public int AddressId { get; set; }
         public Address Address { get; set; }
