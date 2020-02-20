@@ -42,7 +42,6 @@ namespace TrashCollector.Controllers
                     return RedirectToAction("Create", "Employees");
                 }
             }
-
             return View();
         }
 
