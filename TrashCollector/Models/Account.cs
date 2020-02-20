@@ -11,12 +11,17 @@ namespace TrashCollector.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Pick Up Day")]
         public DayOfWeek PickUpDay { get; set; }
         public double Balance { get; set; }
         public bool IsPickedUp { get; set; }
+        [Display(Name = "Suspend Service")]
         public bool IsSuspended { get; set; }
+        [Display(Name = "Start Date of Suspend Service")]
         public DateTime StartDateSuspend { get; set; }
+        [Display(Name = "End Date of Suspend Service")]
         public DateTime EndDateSuspend { get; set; }
+        [Display(Name = "One Time Pickup Date")]
         public DateTime OneTimePickup { get; set; }
 
         [ForeignKey("Address")]

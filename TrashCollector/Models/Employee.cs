@@ -13,6 +13,7 @@ namespace TrashCollector.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
+        [Display(Name = "Route Zip Code")]
         public int RouteZipCode { get; set; }
 
         [ForeignKey("IdentityUser")]

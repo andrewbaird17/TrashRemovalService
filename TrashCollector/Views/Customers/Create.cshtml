@@ -24,12 +24,29 @@
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AccountId" class="control-label"></label>
-                <select asp-for="AccountId" class ="form-control" asp-items="ViewBag.AccountId"></select>
+                <label asp-for="Account.PickUpDay" class="control-label"></label>
+                @*do a select drop down list of the DayOfWeek enum*@
+                <select asp-for="Account.PickUpDay" class="form-control" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>
             </div>
             <div class="form-group">
-                <label asp-for="IdentityUserId" class="control-label"></label>
-                <select asp-for="IdentityUserId" class ="form-control" asp-items="ViewBag.IdentityUserId"></select>
+                <label asp-for="Account.Address.StreetAddress" class="control-label"></label>
+                <input asp-for="Account.Address.StreetAddress" class="form-control" />
+                <span asp-validation-for="Account.Address.StreetAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Address.City" class="control-label"></label>
+                <input asp-for="Account.Address.City" class="form-control" />
+                <span asp-validation-for="Account.Address.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Address.State" class="control-label"></label>
+                <input asp-for="Account.Address.State" class="form-control" />
+                <span asp-validation-for="Account.Address.State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Address.ZipCode" class="control-label"></label>
+                <input asp-for="Account.Address.ZipCode" class="form-control" />
+                <span asp-validation-for="Account.Address.ZipCode" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

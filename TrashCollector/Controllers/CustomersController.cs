@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,7 +23,7 @@ namespace TrashCollector.Controllers
         // GET: Customers
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Customers.Include(c => c.Account).Include(c => c.IdentityUser);
+            var applicationDbContext = _context.Customers.Include(c => c.Account);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -49,27 +50,29 @@ namespace TrashCollector.Controllers
         // GET: Customers/Create
         public IActionResult Create()
         {
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id");
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
-            return View();
+            Customer customer = new Customer();
+            return View(customer);
         }
 
         // POST: Customers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,AccountId,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName")] Customer customer)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var customerInDB = _context.Customers.Single(m => m.Id == customer.Id);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                customerInDB.IdentityUserId = userId;
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Customers");
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id", customer.AccountId);
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-            return View(customer);
+            else
+            {
+                return await Create(customer);
+            }
         }
 
         // GET: Customers/Edit/5
