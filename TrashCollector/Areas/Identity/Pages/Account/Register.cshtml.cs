@@ -121,7 +121,8 @@ namespace TrashCollector.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
+            var roles = _roleManager.Roles;
+            Roles = new SelectList(roles, "Name", "Name");
             // If we got this far, something failed, redisplay form
             return Page();
         }

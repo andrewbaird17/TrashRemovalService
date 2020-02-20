@@ -22,10 +22,14 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Employee employee)
         {
-            var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var today = DateTime.Today.DayOfWeek;
+            //var employeeinDB = _context.Employees.Where(e => e.Id == id).FirstOrDefault();
+            var employeeinDB = employee;
+            var customersInDBToday = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode).Where(c => c.Account.PickUpDay == today).Include(c=>c.Account).Include(c=>c.Account.Address);
+            return View(await customersInDBToday.ToListAsync());
+
         }
 
         // GET: Employees/Details/5
@@ -68,7 +72,7 @@ namespace TrashCollector.Controllers
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 employeeInDB.IdentityUserId = userId;
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Employees");
+                return RedirectToAction("Index", "Employees", employee.Id);
             }
             else
             {

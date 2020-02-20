@@ -47,7 +47,7 @@ namespace TrashCollector.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Employees");
+                    return RedirectToAction("Index", "Employees",employeeInDB);
                 }
             }
             return View();
