@@ -32,6 +32,10 @@ namespace TrashCollector.Controllers
                 {
                     return RedirectToAction("Create", "Customers");
                 }
+                else
+                {
+                    return RedirectToAction("Index", "Customers");
+                }
             }
             if (User.IsInRole("Employee"))
             {
@@ -40,6 +44,10 @@ namespace TrashCollector.Controllers
                 if (employeeInDB == null)
                 {
                     return RedirectToAction("Create", "Employees");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Employees");
                 }
             }
             return View();
