@@ -25,12 +25,20 @@ namespace TrashCollector.Controllers
         public async Task<IActionResult> Index(Employee employee)
         {
             var today = DateTime.Today.DayOfWeek;
-            //var employeeinDB = _context.Employees.Where(e => e.Id == id).FirstOrDefault();
             var employeeinDB = employee;
             var customersInDBToday = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode).Where(c => c.Account.PickUpDay == today).Include(c=>c.Account).Include(c=>c.Account.Address);
             return View(await customersInDBToday.ToListAsync());
 
         }
+
+        //public async Task<IActionResult> IndexSelect(Employee employee, DayOfWeek dayOfWeek)
+        //{
+        //    // should create a different list of customers based off of a different selected day
+        //    var day = dayOfWeek;
+        //    var employeeinDB = employee;
+        //    var customersInDBDay = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode).Where(c => c.Account.PickUpDay == day).Include(c => c.Account).Include(c => c.Account.Address);
+        //    return View(await customersInDBDay.ToListAsync());
+        //}
 
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
