@@ -62,10 +62,11 @@ namespace TrashCollector.Controllers
         {
             if (ModelState.IsValid)
             {
-                var employeeInDB = _context.Employees.Where(m => m.Id == employee.Id).SingleOrDefault();
-                //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 _context.Add(employee);
-                //employeeInDB.IdentityUserId = userId;
+                await _context.SaveChangesAsync();
+                var employeeInDB = _context.Employees.Single(m => m.Id == employee.Id);
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                employeeInDB.IdentityUserId = userId;
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Employees");
             }
@@ -73,7 +74,7 @@ namespace TrashCollector.Controllers
             {
                 return await Create(employee);
             }
-            
+
         }
 
         // GET: Employees/Edit/5

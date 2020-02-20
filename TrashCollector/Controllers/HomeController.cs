@@ -40,7 +40,7 @@ namespace TrashCollector.Controllers
             if (User.IsInRole("Employee"))
             {
                 // Check if already a customer in EMployees table
-                var employeeInDB = _context.Customers.Where(x => x.IdentityUserId == userId).FirstOrDefault();
+                var employeeInDB = _context.Employees.Where(x => x.IdentityUserId == userId).FirstOrDefault();
                 if (employeeInDB == null)
                 {
                     return RedirectToAction("Create", "Employees");
