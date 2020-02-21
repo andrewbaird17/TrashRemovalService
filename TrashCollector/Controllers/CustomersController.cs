@@ -75,15 +75,7 @@ namespace TrashCollector.Controllers
         // GET: Customers/EditPickUpDay
         public async Task<IActionResult> EditPickUpDay(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
             var customer = await _context.Customers.Include("Account").FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
             return View(customer);
         }
 
@@ -101,15 +93,7 @@ namespace TrashCollector.Controllers
         // GET: Customers/EditOneTimePickUP
         public async Task<IActionResult> EditOneTimePickUp(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
             var customer = await _context.Customers.Include("Account").FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
             return View(customer);
         }
 
@@ -119,11 +103,30 @@ namespace TrashCollector.Controllers
         public async Task<IActionResult> EditOneTimePickUp(Customer customer)
         {
             var customerInDB = await _context.Customers.Include(c => c.Account).FirstOrDefaultAsync(m => m.Id == customer.Id);
-            customerInDB.Account.PickUpDay = customer.Account.PickUpDay;
+            customerInDB.Account.OneTimePickup = customer.Account.OneTimePickup;
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Customers", customerInDB);
         }
 
+        // GET: Customers/EditServiceSuspension
+        public async Task<IActionResult> EditServiceSuspension(int? id)
+        {
+            var customer = await _context.Customers.Include("Account").FirstOrDefaultAsync(m => m.Id == id);
+            return View(customer);
+        }
+
+        // POST: Customers/EditServiceSuspension
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditServiceSuspension(Customer customer)
+        {
+            var customerInDB = await _context.Customers.Include(c => c.Account).FirstOrDefaultAsync(m => m.Id == customer.Id);
+            customerInDB.Account.IsSuspended = customer.Account.IsSuspended;
+            customerInDB.Account.StartDateSuspend = customer.Account.StartDateSuspend;
+            customerInDB.Account.EndDateSuspend = customer.Account.EndDateSuspend;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Customers", customerInDB);
+        }
         // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
