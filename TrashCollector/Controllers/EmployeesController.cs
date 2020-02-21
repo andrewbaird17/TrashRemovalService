@@ -22,11 +22,14 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index(Employee employee)
+        public async Task<IActionResult> Index()
         {
             var todayDayOfWeek = DateTime.Today.DayOfWeek;
             var todayDateTime = DateTime.Today.Day;
-            var employeeinDB = employee;
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employeeinDB = _context.Employees.Where(e => e.IdentityUserId == userId).FirstOrDefault();
+
             //Limit by in ZipCOde, IsSuspended, PickUpDay today, (have to add onetimepickup somehow)
             var customersToday = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode)
                 .Where(c => c.Account.IsSuspended == false)
@@ -38,9 +41,35 @@ namespace TrashCollector.Controllers
                 .Where(c => c.Account.OneTimePickup.Day == todayDateTime)
                 .Include(c => c.Account)
                 .Include(c => c.Account.Address);
+
             var customersInDBToday = customersToday.Concat(customersTodayOneTime);
             return View(await customersInDBToday.ToListAsync());
         }
+
+        public async Task<IActionResult> SelectDayToView(DayOfWeek day)
+        {
+            //var dayOfWeek = DateTime.Today.DayOfWeek;
+            //var todayDateTime = DateTime.Today.Day;
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employeeinDB = _context.Employees.Where(e=> e.IdentityUserId == userId).FirstOrDefault();
+
+            //Limit by in ZipCode, IsSuspended, PickUpDay today, (have to add onetimepickup somehow)
+            var customersForDay = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode)
+                .Where(c => c.Account.IsSuspended == false)
+                .Where(c => c.Account.PickUpDay == day)
+                .Include(c => c.Account)
+                .Include(c => c.Account.Address);
+            //var customersTodayOneTime = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode)
+            //    .Where(c => c.Account.IsSuspended == false)
+            //    .Where(c => c.Account.OneTimePickup.Day == todayDateTime)
+            //    .Include(c => c.Account)
+            //    .Include(c => c.Account.Address);
+            //var customersInDBToday = customersForDay.Concat(customersTodayOneTime);
+
+            return View(await customersForDay.ToListAsync());
+        }
+
 
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)

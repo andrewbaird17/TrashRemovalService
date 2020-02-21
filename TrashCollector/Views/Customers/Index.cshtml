@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TrashCollector.Models.Customer>
+﻿@model TrashCollector.Models.Customer
 
 @{
     ViewData["Title"] = "Home";
@@ -23,23 +23,22 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(model => model.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Account.PickUpDay)
+                @Html.DisplayFor(model => model.Account.PickUpDay)
             </td>
 
             <td>
-                <a asp-action="EditPickUpDay" asp-route-id="@item.Id">Edit Pick Up Day</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Account Details (Current Bill)</a> |
-                <a asp-action="EditOneTimePickup" asp-route-id="@item.Id">Schedule One Time Pick Up</a> |
-                <a asp-action="EditServiceSuspension" asp-route-id="@item.Id">Schedule Service Suspension</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="EditPickUpDay" asp-route-id="@Model.Id">Edit Pick Up Day</a> |
+                <a asp-action="Details" asp-route-id="@Model.Id">Account Details (Current Bill)</a> |
+                <a asp-action="EditOneTimePickup" asp-route-id="@Model.Id">Schedule One Time Pick Up</a> |
+                <a asp-action="EditServiceSuspension" asp-route-id="@Model.Id">Schedule Service Suspension</a> |
+                <a asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
             </td>
         </tr>
-}
+
     </tbody>
 </table>

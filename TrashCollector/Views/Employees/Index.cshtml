@@ -41,6 +41,13 @@
 }
     </tbody>
 </table>
+<p>
+    Select A Day Below to See Customers On Route For That Day
+</p>
 <div>
-    <a asp-action="IndexSelect">Select A Different Day To Display Pickup List</a>
+    <a asp-action="SelectDayToView" asp-route-id="Monday">Monday</a>|
+    <a asp-action="SelectDayToView" asp-route-id="Tuesday">Tuesday</a>|
+    <a asp-action="SelectDayToView" asp-route-id="Wednesday">Wednesday</a>|
+    <a asp-action="SelectDayToView" asp-route-id="Thursday">Thursday</a>|
+    <a asp-action="SelectDayToView" asp-route-id="Friday">Friday</a>
 </div>

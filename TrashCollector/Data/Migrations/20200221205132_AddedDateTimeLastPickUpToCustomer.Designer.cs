@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Data;
 
 namespace TrashCollector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200221205132_AddedDateTimeLastPickUpToCustomer")]
+    partial class AddedDateTimeLastPickUpToCustomer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace TrashCollector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4dc5249e-8af2-4e8d-9bc2-2f4ca1f04bf6",
-                            ConcurrencyStamp = "95bfab5b-6f8c-4a26-a4b9-9330e8cc6ac8",
+                            Id = "4c670bda-9e87-4fa7-99d4-8ab93827397e",
+                            ConcurrencyStamp = "841d4101-fb57-4049-852f-7f06a587132a",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "c9a298fe-a6a3-48e7-b31c-c478cbab60fa",
-                            ConcurrencyStamp = "b34cc078-6fd5-4075-af0f-f11b2ba809e2",
+                            Id = "431d13a3-d692-4a49-b700-09ab127356fd",
+                            ConcurrencyStamp = "7fdb1bb8-f760-49c9-9a56-0532bbe329fd",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -253,6 +255,9 @@ namespace TrashCollector.Migrations
                     b.Property<bool>("IsSuspended")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("LastPickUp")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("OneTimePickup")
                         .HasColumnType("datetime2");
 
@@ -335,6 +340,9 @@ namespace TrashCollector.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("RouteZipCode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SelectDayToView")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
