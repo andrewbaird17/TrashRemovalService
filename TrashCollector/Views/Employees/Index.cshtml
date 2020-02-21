@@ -36,14 +36,14 @@
     </tbody>
 </table>
 
-<div class="form-group">
+@*<div class="form-group">
     <label asp-for="" class="control-label"></label>
-    @*do a select drop down list of the DayOfWeek enum*@
+    do a select drop down list of the DayOfWeek enum
     <select asp-for="Account.PickUpDay" class="form-control" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>
     <div class="form-group">
-        <input type="submit" value="Create" class="btn btn-primary" />
+        <input type="submit" value="IndexSelect" class="btn btn-primary" />
     </div>
-</div>
+</div>*@
 <div>
     <a asp-action="IndexSelect">Select A Different Day To Display Pickup List</a>
 </div>

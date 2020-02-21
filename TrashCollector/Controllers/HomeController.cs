@@ -34,7 +34,7 @@ namespace TrashCollector.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Customers");
+                    return RedirectToAction("Index", "Customers",customerInDB);
                 }
             }
             if (User.IsInRole("Employee"))

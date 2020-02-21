@@ -21,10 +21,10 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Customers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Customer customer)
         {
-            var applicationDbContext = _context.Customers.Include(c => c.Account);
-            return View(await applicationDbContext.ToListAsync());
+            var customerInDB = _context.Customers.Where(c=>c.Id == customer.Id).Include("Account");
+            return View(await customerInDB.ToListAsync());
         }
 
         // GET: Customers/Details/5
@@ -35,10 +35,7 @@ namespace TrashCollector.Controllers
                 return NotFound();
             }
 
-            var customer = await _context.Customers
-                .Include(c => c.Account)
-                .Include(c => c.IdentityUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var customer = await _context.Customers.Include(c => c.Account).Include(c => c.Account.Address).FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
                 return NotFound();
@@ -75,59 +72,30 @@ namespace TrashCollector.Controllers
             }
         }
 
-        // GET: Customers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Customers/EditPickUpDay
+        public async Task<IActionResult> EditPickUpDay(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = await _context.Customers.Include("Account").FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
                 return NotFound();
             }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id", customer.AccountId);
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
             return View(customer);
         }
 
-        // POST: Customers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Customers/EditPickUpDay
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,AccountId,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> EditPickUpDay(Customer customer)
         {
-            if (id != customer.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(customer);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CustomerExists(customer.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["AccountId"] = new SelectList(_context.Accounts, "Id", "Id", customer.AccountId);
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-            return View(customer);
+            var customerInDB = await _context.Customers.Include(c => c.Account).FirstOrDefaultAsync(m => m.Id == customer.Id);
+            customerInDB.Account.PickUpDay = customer.Account.PickUpDay;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index","Customers",customerInDB);
         }
 
         // GET: Customers/Delete/5
