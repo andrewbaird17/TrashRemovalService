@@ -42,10 +42,10 @@ namespace TrashCollector.Controllers
             return View(await customersInDBToday.ToListAsync());
         }
 
-        //public async Task<IActionResult> IndexSelect(Employee employee, DayOfWeek dayOfWeek)
+        //public async Task<IActionResult> IndexSelect(Employee employee)
         //{
         //    // should create a different list of customers based off of a different selected day
-        //    var day = dayOfWeek;
+        //    var day = DateTime.Today.DayOfWeek;
         //    var employeeinDB = employee;
         //    var customersInDBDay = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode).Where(c => c.Account.PickUpDay == day).Include(c => c.Account).Include(c => c.Account.Address);
         //    return View(await customersInDBDay.ToListAsync());
