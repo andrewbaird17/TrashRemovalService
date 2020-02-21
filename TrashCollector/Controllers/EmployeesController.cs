@@ -24,11 +24,22 @@ namespace TrashCollector.Controllers
         // GET: Employees
         public async Task<IActionResult> Index(Employee employee)
         {
-            var today = DateTime.Today.DayOfWeek;
+            var todayDayOfWeek = DateTime.Today.DayOfWeek;
+            var todayDateTime = DateTime.Today.Day;
             var employeeinDB = employee;
-            var customersInDBToday = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode).Where(c => c.Account.PickUpDay == today).Include(c=>c.Account).Include(c=>c.Account.Address);
+            //Limit by in ZipCOde, IsSuspended, PickUpDay today, (have to add onetimepickup somehow)
+            var customersToday = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode)
+                .Where(c => c.Account.IsSuspended == false)
+                .Where(c => c.Account.PickUpDay == todayDayOfWeek)
+                .Include(c=>c.Account)
+                .Include(c=>c.Account.Address);
+            var customersTodayOneTime = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode)
+                .Where(c => c.Account.IsSuspended == false)
+                .Where(c=> c.Account.OneTimePickup.Day == todayDateTime)
+                .Include(c => c.Account)
+                .Include(c => c.Account.Address);
+            var customersInDBToday = customersToday.Concat(customersTodayOneTime);
             return View(await customersInDBToday.ToListAsync());
-
         }
 
         //public async Task<IActionResult> IndexSelect(Employee employee, DayOfWeek dayOfWeek)

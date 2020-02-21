@@ -7,9 +7,6 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -18,6 +15,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Account.Address.StreetAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account.OneTimePickup)
             </th>
             <th></th>
         </tr>
@@ -31,19 +31,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Account.Address.StreetAddress)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Account.OneTimePickup)
+            </td>
         </tr>
 }
     </tbody>
 </table>
 
-@*<div class="form-group">
-    <label asp-for="" class="control-label"></label>
-    do a select drop down list of the DayOfWeek enum
-    <select asp-for="Account.PickUpDay" class="form-control" asp-items="Html.GetEnumSelectList<DayOfWeek>()"></select>
-    <div class="form-group">
-        <input type="submit" value="IndexSelect" class="btn btn-primary" />
-    </div>
-</div>*@
 <div>
     <a asp-action="IndexSelect">Select A Different Day To Display Pickup List</a>
 </div>
