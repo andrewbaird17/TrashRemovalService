@@ -1,23 +1,20 @@
 ﻿@model IEnumerable<TrashCollector.Models.Customer>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Home</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
-</p>
+</p>*@
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Account.PickUpDay)
@@ -32,15 +29,14 @@
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Account.PickUpDay)
             </td>
 
             <td>
                 <a asp-action="EditPickUpDay" asp-route-id="@item.Id">Edit Pick Up Day</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Account Details (Current Bill)</a> |
+                <a asp-action="EditOneTimePickup" asp-route-id="@item.Id">Schedule One Time Pick Up</a> |
+                <a asp-action="EditServiceSuspension" asp-route-id="@item.Id">Schedule Service Suspension</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>

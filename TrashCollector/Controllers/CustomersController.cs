@@ -98,6 +98,32 @@ namespace TrashCollector.Controllers
             return RedirectToAction("Index","Customers",customerInDB);
         }
 
+        // GET: Customers/EditOneTimePickUP
+        public async Task<IActionResult> EditOneTimePickUp(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var customer = await _context.Customers.Include("Account").FirstOrDefaultAsync(m => m.Id == id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            return View(customer);
+        }
+
+        // POST: Customers/EditOneTimePickUp
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditOneTimePickUp(Customer customer)
+        {
+            var customerInDB = await _context.Customers.Include(c => c.Account).FirstOrDefaultAsync(m => m.Id == customer.Id);
+            customerInDB.Account.PickUpDay = customer.Account.PickUpDay;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Customers", customerInDB);
+        }
+
         // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
