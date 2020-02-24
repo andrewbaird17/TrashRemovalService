@@ -78,7 +78,7 @@ namespace TrashCollector.Controllers
             var customerInDB = await _context.Customers.Include(c => c.Account).FirstOrDefaultAsync(m => m.Id == customer.Id);
             customerInDB.Account.PickUpDay = customer.Account.PickUpDay;
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index","Customers",customerInDB);
+            return RedirectToAction("Index","Customers");
         }
 
         // GET: Customers/EditOneTimePickUP
@@ -96,7 +96,7 @@ namespace TrashCollector.Controllers
             var customerInDB = await _context.Customers.Include(c => c.Account).FirstOrDefaultAsync(m => m.Id == customer.Id);
             customerInDB.Account.OneTimePickup = customer.Account.OneTimePickup;
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Customers", customerInDB);
+            return RedirectToAction("Index", "Customers");
         }
 
         // GET: Customers/EditServiceSuspension
@@ -116,7 +116,7 @@ namespace TrashCollector.Controllers
             customerInDB.Account.StartDateSuspend = customer.Account.StartDateSuspend;
             customerInDB.Account.EndDateSuspend = customer.Account.EndDateSuspend;
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Customers", customerInDB);
+            return RedirectToAction("Index", "Customers");
         }
         // GET: Customers/Delete/5
         public async Task<IActionResult> Delete(int? id)
