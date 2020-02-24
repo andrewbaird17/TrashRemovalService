@@ -30,7 +30,7 @@ namespace TrashCollector.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employeeinDB = _context.Employees.Where(e => e.IdentityUserId == userId).FirstOrDefault();
 
-            //Limit by in ZipCOde, IsSuspended, PickUpDay today, (have to add onetimepickup somehow)
+            //Limit by in ZipCOde, IsSuspended, PickUpDay today, add onetimepickup
             var customersToday = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode)
                 .Where(c => c.Account.IsSuspended == false)
                 .Where(c => c.Account.PickUpDay == todayDayOfWeek)
@@ -48,24 +48,15 @@ namespace TrashCollector.Controllers
 
         public async Task<IActionResult> SelectDayToView(DayOfWeek day)
         {
-            //var dayOfWeek = DateTime.Today.DayOfWeek;
-            //var todayDateTime = DateTime.Today.Day;
-
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employeeinDB = _context.Employees.Where(e=> e.IdentityUserId == userId).FirstOrDefault();
-
-            //Limit by in ZipCode, IsSuspended, PickUpDay today, (have to add onetimepickup somehow)
+            
+            //Limit by in ZipCode, IsSuspended, PickUpDay selected day of week
             var customersForDay = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode)
                 .Where(c => c.Account.IsSuspended == false)
                 .Where(c => c.Account.PickUpDay == day)
                 .Include(c => c.Account)
                 .Include(c => c.Account.Address);
-            //var customersTodayOneTime = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode)
-            //    .Where(c => c.Account.IsSuspended == false)
-            //    .Where(c => c.Account.OneTimePickup.Day == todayDateTime)
-            //    .Include(c => c.Account)
-            //    .Include(c => c.Account.Address);
-            //var customersInDBToday = customersForDay.Concat(customersTodayOneTime);
 
             return View(await customersForDay.ToListAsync());
         }

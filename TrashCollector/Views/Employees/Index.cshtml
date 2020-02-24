@@ -45,9 +45,9 @@
     Select A Day Below to See Customers On Route For That Day
 </p>
 <div>
-    <a asp-action="SelectDayToView" asp-route-id="Monday">Monday</a>|
-    <a asp-action="SelectDayToView" asp-route-id="Tuesday">Tuesday</a>|
-    <a asp-action="SelectDayToView" asp-route-id="Wednesday">Wednesday</a>|
-    <a asp-action="SelectDayToView" asp-route-id="Thursday">Thursday</a>|
-    <a asp-action="SelectDayToView" asp-route-id="Friday">Friday</a>
+    <a asp-action="SelectDayToView" asp-route-id="@DayOfWeek.Monday">Monday </a>|
+    <a asp-action="SelectDayToView" asp-route-id="@DayOfWeek.Tuesday"> Tuesday </a>|
+    <a asp-action="SelectDayToView" asp-route-id="@DayOfWeek.Wednesday"> Wednesday </a>|
+    <a asp-action="SelectDayToView" asp-route-id="@DayOfWeek.Thursday"> Thursday </a>|
+    <a asp-action="SelectDayToView" asp-route-id="@DayOfWeek.Friday"> Friday</a>
 </div>

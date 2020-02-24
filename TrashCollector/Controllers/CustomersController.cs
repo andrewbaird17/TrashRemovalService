@@ -21,26 +21,17 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Customers
-        public async Task<IActionResult> Index(Customer customer)
+        public async Task<IActionResult> Index()
         {
-            var customerInDB = _context.Customers.Where(c=>c.Id == customer.Id).Include("Account");
-            return View(await customerInDB.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customerInDB = await _context.Customers.Include("Account").FirstOrDefaultAsync(x => x.IdentityUserId == userId);
+            return View(customerInDB);
         }
 
         // GET: Customers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var customer = await _context.Customers.Include(c => c.Account).Include(c => c.Account.Address).FirstOrDefaultAsync(m => m.Id == id);
-            if (customer == null)
-            {
-                return NotFound();
-            }
-
             return View(customer);
         }
 
