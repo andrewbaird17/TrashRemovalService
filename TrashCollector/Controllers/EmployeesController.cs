@@ -46,7 +46,7 @@ namespace TrashCollector.Controllers
             return View(await customersInDBToday.ToListAsync());
         }
 
-        public async Task<IActionResult> SelectDayToView(DayOfWeek day)
+        public async Task<IActionResult> SelectDayToView(DayOfWeek daySelected)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employeeinDB = _context.Employees.Where(e=> e.IdentityUserId == userId).FirstOrDefault();
@@ -54,7 +54,7 @@ namespace TrashCollector.Controllers
             //Limit by in ZipCode, IsSuspended, PickUpDay selected day of week
             var customersForDay = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode)
                 .Where(c => c.Account.IsSuspended == false)
-                .Where(c => c.Account.PickUpDay == day)
+                .Where(c => c.Account.PickUpDay == daySelected)
                 .Include(c => c.Account)
                 .Include(c => c.Account.Address);
 
