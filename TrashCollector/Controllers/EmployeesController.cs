@@ -79,6 +79,11 @@ namespace TrashCollector.Controllers
             return RedirectToAction("Index", "Employees");
         }
 
+        public async Task<IActionResult> SeeOnMap(Customer customer)
+        {
+            var customerInDB = await _context.Customers.Include(c => c.Account).FirstOrDefaultAsync(m => m.Id == customer.Id);
+            return View();
+        }
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
         {
