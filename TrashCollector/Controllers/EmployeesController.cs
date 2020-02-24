@@ -81,8 +81,8 @@ namespace TrashCollector.Controllers
 
         public async Task<IActionResult> SeeOnMap(Customer customer)
         {
-            var customerInDB = await _context.Customers.Include(c => c.Account).FirstOrDefaultAsync(m => m.Id == customer.Id);
-            return View();
+            var customerInDB = await _context.Customers.Include(c => c.Account).Include(c=>c.Account.Address).FirstOrDefaultAsync(m => m.Id == customer.Id);
+            return View(customerInDB);
         }
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
