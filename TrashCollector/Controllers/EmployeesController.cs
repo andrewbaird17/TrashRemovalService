@@ -49,8 +49,8 @@ namespace TrashCollector.Controllers
         public async Task<IActionResult> SelectDayToView(DayOfWeek daySelected)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var employeeinDB = _context.Employees.Where(e=> e.IdentityUserId == userId).FirstOrDefault();
-            
+            var employeeinDB = _context.Employees.Where(e => e.IdentityUserId == userId).FirstOrDefault();
+
             //Limit by in ZipCode, IsSuspended, PickUpDay selected day of week
             var customersForDay = _context.Customers.Where(c => c.Account.Address.ZipCode == employeeinDB.RouteZipCode)
                 .Where(c => c.Account.IsSuspended == false)
@@ -61,6 +61,18 @@ namespace TrashCollector.Controllers
             return View(await customersForDay.ToListAsync());
         }
 
+        public async Task<IActionResult> ConfirmAndChargeAccount(Customer customer)
+        {
+
+            var customerInDB = await _context.Customers.Include(c => c.Account).FirstOrDefaultAsync(m => m.Id == customer.Id);
+            if (customerInDB.Account.IsPickedUp != true)
+            {
+                customerInDB.Account.IsPickedUp = true;
+                customerInDB.Account.Balance += 75;
+                await _context.SaveChangesAsync();
+            }
+            return RedirectToAction("Index", "Employees");
+        }
 
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -17,6 +17,9 @@
                 @Html.DisplayNameFor(model => model.Account.Address.StreetAddress)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Account.IsPickedUp)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Account.OneTimePickup)
             </th>
             <th></th>
@@ -32,10 +35,13 @@
                 @Html.DisplayFor(modelItem => item.Account.Address.StreetAddress)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Account.IsPickedUp)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Account.OneTimePickup)
             </td>
             <td>
-                <a asp-action="ConfirmPickUp" asp-route-id="@item.Id">Confirm Pick Up</a>
+                <a asp-action="ConfirmAndChargeAccount" asp-route-id="@item.Id">Confirm Pick Up And Charge Account</a>
             </td>
         </tr>
 }
