@@ -12,6 +12,7 @@
     <div class="col-md-6">
         <div id="map" style="height:500px; width:500px"></div>
         <script>
+            var geocoder;
             var map;
             function initMap() {
                 map = new google.maps.Map(document.getElementById('map'), {
@@ -20,7 +21,7 @@
                 });
             }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFLQhvZ2wS9E17RBvrs8SgyPHKs2E46Fk&callback=initMap"
+        <script src="https://maps.googleapis.com/maps/api/js?"
                 async defer></script>
     </div>
 </div>
