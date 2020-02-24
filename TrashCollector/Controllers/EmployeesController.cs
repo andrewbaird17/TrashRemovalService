@@ -63,11 +63,16 @@ namespace TrashCollector.Controllers
 
         public async Task<IActionResult> ConfirmAndChargeAccount(Customer customer)
         {
-
+            var todayDateTime = DateTime.Today.Day;
             var customerInDB = await _context.Customers.Include(c => c.Account).FirstOrDefaultAsync(m => m.Id == customer.Id);
             if (customerInDB.Account.IsPickedUp != true)
             {
                 customerInDB.Account.IsPickedUp = true;
+                customerInDB.Account.Balance += 75;
+                await _context.SaveChangesAsync();
+            }
+            else if(customerInDB.Account.OneTimePickup.Day == todayDateTime)
+            {
                 customerInDB.Account.Balance += 75;
                 await _context.SaveChangesAsync();
             }
