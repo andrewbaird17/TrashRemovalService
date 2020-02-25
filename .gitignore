@@ -349,4 +349,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-~/TrashCollector/My_API_Key.cs
+My_API_Key.cs
