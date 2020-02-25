@@ -34,17 +34,19 @@
         <div id="map" style="height:500px; width:500px"></div>
         <script>
             var geocoder;
-            var map;
+            //var map;
             function initMap() {
-                map = new google.maps.Map(document.getElementById('map'), {
-                    center: { lat: 43.041, lng: -87.906 },
+                var location = { lat: 43.041, lng: -87.906 };
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    center: location,
                     zoom: 15
                 });
+                var marker = new google.maps.Marker({position: location, map: map})
             }
                 
         </script>
         @*<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"*@
-        <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBVhKnqThTyhe8_HxLPNRQPDnfEKTmzwQ&callback=initMap"
                 async defer></script>
     </div>
 </div>
