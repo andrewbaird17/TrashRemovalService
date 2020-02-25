@@ -81,6 +81,7 @@ namespace TrashCollector.Controllers
 
         public async Task<IActionResult> SeeOnMap(Customer customer)
         {
+            ViewBag.APIKey = My_API_Key.Key;
             var customerInDB = await _context.Customers.Include(c => c.Account).Include(c=>c.Account.Address).FirstOrDefaultAsync(m => m.Id == customer.Id);
             return View(customerInDB);
         }

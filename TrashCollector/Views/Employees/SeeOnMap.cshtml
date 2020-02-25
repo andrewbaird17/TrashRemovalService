@@ -44,11 +44,11 @@
                 var marker = new google.maps.Marker({ position: location, map: map })
             }
 
-        </script>
-        @*<script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"*@
-        @{var url = "https://maps.googleapis.com/maps/api/js?key=" + My_API_Key.Key + "&callback=initMap";
-        }
-        <script src="url"
+        </script>       
+        <script src="https://maps.googleapis.com/maps/api/js?key=@ViewBag.APIKey&callback=initMap"
                 async defer></script>
     </div>
+</div>
+<div>
+    <a asp-action="Index">Back To Today's Pick Ups</a>
 </div>
